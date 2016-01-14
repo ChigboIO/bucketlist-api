@@ -1,16 +1,17 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
+ruby "2.1.6"
 
+gem "rails", "4.2.4"
+gem "rails-api"
 
-gem 'rails', '4.2.4'
+group :development, :test do
+  gem "spring"
+  gem "sqlite3"
+end
 
-gem 'rails-api'
-
-gem 'spring', :group => :development
-
-
-gem 'sqlite3'
-
-
+group :production do
+  gem "pg"
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
