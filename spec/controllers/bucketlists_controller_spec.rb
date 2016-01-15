@@ -40,4 +40,18 @@ RSpec.describe Api::BucketlistsController, type: :controller do
       expect(response).to have_http_status(404)
     end
   end
+
+  describe "POST create" do
+    it "creates a new bucketlist instance on valid params" do
+      post :create, name: "Endless"
+      expect(Bucketlist.count).to eq(1)
+      expect(response).to have_http_status(201)
+    end
+
+    it "creates a new bucketlist instance on invalid params" do
+      post :create, name: ""
+      expect(Bucketlist.count).to eq(0)
+      expect(response).to have_http_status(400)
+    end
+  end
 end
