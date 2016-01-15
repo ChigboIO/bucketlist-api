@@ -5,6 +5,13 @@ module Api
       render json: @bucketlists
     end
 
+    def show
+      @bucketlist = Bucketlist.find(params[:id])
+      render json: @bucketlist
+    rescue
+      render json: { error: "No result found for this request" }, status: 404
+    end
+
     def create
       @bucketlist = Bucketlist.new(bucketlist_params)
 
@@ -15,11 +22,15 @@ module Api
       end
     end
 
-    def show
+    def update
       @bucketlist = Bucketlist.find(params[:id])
-      render json: @bucketlist
+      if @bucketlist.update(bucketlist_params)
+        render json: @bucketlist, status: 201
+      else
+        render json: @bucketlist.errors.full_messages, status: 400
+      end
     rescue
-      render json: { error: "No result found for this request" }, status: 404
+      render json: { error: "No such bucketlist was found" }, status: 404
     end
 
     def destroy
