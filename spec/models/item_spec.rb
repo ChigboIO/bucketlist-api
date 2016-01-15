@@ -1,24 +1,24 @@
 require "rails_helper"
 
-RSpec.describe Bucketlist, type: :model do
+RSpec.describe Item, type: :model do
   it "has a valid factory" do
-    expect(build(:bucketlist)).to be_valid
+    expect(build(:item)).to be_valid
   end
 
-  let(:bucketlist) { build(:bucketlist) }
+  let(:item) { build(:item) }
 
   describe "instance method calls" do
     context "when I call the instance methods" do
-      it { expect(bucketlist).to respond_to(:name) }
+      it { expect(item).to respond_to(:name) }
     end
   end
 
   describe "ActiveModel Validations" do
-    it { expect(bucketlist).to validate_presence_of(:name) }
+    it { expect(item).to validate_presence_of(:name) }
   end
 
   describe "ActiveModel Association" do
     # some activemodel association tests here
-    it { expect(bucketlist).to have_many(:items) }
+    it { expect(item).to belong_to(:bucketlist) }
   end
 end

@@ -11,7 +11,13 @@
 Bucketlist.destroy_all
 
 5.times do
-  Bucketlist.create(name: Faker::Company.buzzword)
+  bucketlist = Bucketlist.create(name: Faker::Company.buzzword)
+  2.times do
+    Item.create(
+      name: Faker::Company.catch_phrase,
+      bucketlist_id: bucketlist.id
+    )
+  end
 end
 
 # Generate a buzzword-laden catch phrase.

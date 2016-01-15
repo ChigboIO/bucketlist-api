@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :bucketlists, except: [:new, :edit] do
-      
+      resources :items, only: [:create, :update, :destroy]
     end
   end
 
