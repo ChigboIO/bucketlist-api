@@ -7,3 +7,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Bucketlist.destroy_all
+
+5.times do
+  Bucketlist.create(name: Faker::Company.buzzword)
+end
+
+# Generate a buzzword-laden catch phrase.
+# Faker::Company.catch_phrase #=> "Business-focused coherent parallelism"
