@@ -11,5 +11,13 @@ module Api
     rescue
       render json: { error: "No result found for this request" }, status: 404
     end
+
+    def destroy
+      @bucketlist = Bucketlist.find(params[:id])
+      @bucketlist.destroy
+      render json: { message: "Bucketlist deleted successfully" }, status: 200
+    rescue
+      render json: { error: "No such bucketlist was found" }, status: 404
+    end
   end
 end
