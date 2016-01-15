@@ -30,9 +30,9 @@ RSpec.describe Api::BucketlistsController, type: :controller do
       bucketlist = create(:bucketlist)
       get :destroy, id: bucketlist.id
       expect(assigns(:bucketlist)).to eq(bucketlist)
-      expect(response).to have_http_status(200)
       expect(Bucketlist.find_by_id(bucketlist.id)).to be_nil
       expect(Bucketlist.count).to eq(0)
+      expect(response).to have_http_status(200)
     end
 
     it "return http_status 404 when ID does not exist" do
@@ -42,16 +42,41 @@ RSpec.describe Api::BucketlistsController, type: :controller do
   end
 
   describe "POST create" do
-    it "creates a new bucketlist instance on valid params" do
+    it "creates a new bucketlist instance on valid params with status 201" do
       post :create, name: "Endless"
       expect(Bucketlist.count).to eq(1)
       expect(response).to have_http_status(201)
     end
 
-    it "creates a new bucketlist instance on invalid params" do
+    it "creates a new bucketlist instance on invalid params with status 400" do
       post :create, name: ""
       expect(Bucketlist.count).to eq(0)
       expect(response).to have_http_status(400)
+    end
+  end
+
+  describe "PUT update" do
+    it "updates a bucketlist instance on valid params with http_status 201" do
+      bucketlist = create(:bucketlist)
+      put :update, id: bucketlist.id, name: "New"
+      expect(assigns(:bucketlist)).to eq(bucketlist)
+      expect(Bucketlist.find_by_id(bucketlist.id).name).to eq("New")
+      expect(Bucketlist.count).to eq(1)
+      expect(response).to have_http_status(201)
+    end
+
+    it "does not updates a bucketlist instance on invalid params, status 400" do
+      bucketlist = create(:bucketlist)
+      put :update, id: bucketlist.id, name: ""
+      expect(assigns(:bucketlist)).to eq(bucketlist)
+      expect(Bucketlist.find_by_id(bucketlist.id).name).to eq(bucketlist.name)
+      expect(Bucketlist.count).to eq(1)
+      expect(response).to have_http_status(400)
+    end
+
+    it "return http_status 404 when ID does not exist" do
+      put :update, id: 20
+      expect(response).to have_http_status(404)
     end
   end
 end
