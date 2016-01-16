@@ -3,12 +3,13 @@ ruby "2.1.6"
 
 gem "rails", "4.2.4"
 gem "rails-api"
+gem "active_model_serializers"
 gem "faker"
 
 group :development, :test do
   gem "spring"
   gem "sqlite3"
-  gem "rspec-rails", "~> 3.0", require: false
+  gem "rspec-rails", "~> 3.0"
   gem "factory_girl_rails", require: false
   gem "shoulda-matchers", require: false
 end
