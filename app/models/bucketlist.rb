@@ -5,6 +5,15 @@ class Bucketlist < ActiveRecord::Base
   validates :name, presence: true
 
   scope(
+    :search,
+    lambda do |query|
+      unless query.nil?
+        where("name LIKE ?", "%#{query}%")
+      end
+    end
+  )
+
+  scope(
     :paginate,
     lambda do |params|
       limit = 20
