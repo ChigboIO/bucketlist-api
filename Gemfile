@@ -5,6 +5,12 @@ gem "rails", "4.2.4"
 gem "rails-api"
 gem "active_model_serializers"
 gem "faker"
+gem "bcrypt"
+gem "jwt"
+
+group :development do
+  gem "byebug"
+end
 
 group :development, :test do
   gem "spring"

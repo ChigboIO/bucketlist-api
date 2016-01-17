@@ -1,25 +1,24 @@
 require "rails_helper"
 
-RSpec.describe Item, type: :model do
+RSpec.describe Token, type: :model do
   it "has a valid factory" do
-    expect(build(:item)).to be_valid
+    expect(build(:token)).to be_valid
   end
 
-  let(:item) { build(:item) }
+  let(:token) { build(:token) }
 
   describe "instance method calls" do
     context "when I call the instance methods" do
-      it { expect(item).to respond_to(:name) }
-      it { expect(item).to respond_to(:done) }
+      it { expect(token).to respond_to(:value) }
+      it { expect(token).to respond_to(:active) }
     end
   end
 
   describe "ActiveModel Validations" do
-    it { expect(item).to validate_presence_of(:name) }
+    it { expect(token).to validate_presence_of(:value) }
   end
 
   describe "ActiveModel Association" do
     # some activemodel association tests here
-    it { expect(item).to belong_to(:bucketlist) }
   end
 end

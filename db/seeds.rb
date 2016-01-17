@@ -8,15 +8,30 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.destroy_all
 Bucketlist.destroy_all
+Item.destroy_all
+Token.destroy_all
 
-5.times do
-  bucketlist = Bucketlist.create(name: Faker::Company.buzzword)
-  2.times do
-    Item.create(
-      name: Faker::Company.catch_phrase,
-      bucketlist_id: bucketlist.id
+2.times do |i|
+  user = User.create(
+    name: Faker::Name.name,
+    email: "science#{i + 1}@gmail.com",
+    password: "science"
+  )
+
+  3.times do
+    bucketlist = Bucketlist.create(
+      name: Faker::Company.buzzword,
+      user_id: user.id
     )
+
+    2.times do
+      Item.create(
+        name: Faker::Company.catch_phrase,
+        bucketlist_id: bucketlist.id
+      )
+    end
   end
 end
 

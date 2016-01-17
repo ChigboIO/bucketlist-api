@@ -10,6 +10,7 @@ RSpec.describe Bucketlist, type: :model do
   describe "instance method calls" do
     context "when I call the instance methods" do
       it { expect(bucketlist).to respond_to(:name) }
+      it { expect(bucketlist).to respond_to(:user_id) }
     end
   end
 
@@ -20,5 +21,6 @@ RSpec.describe Bucketlist, type: :model do
   describe "ActiveModel Association" do
     # some activemodel association tests here
     it { expect(bucketlist).to have_many(:items) }
+    it { expect(bucketlist).to belong_to(:user) }
   end
 end
