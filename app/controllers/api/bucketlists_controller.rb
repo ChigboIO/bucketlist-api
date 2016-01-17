@@ -1,19 +1,20 @@
 module Api
   class BucketlistsController < ApplicationController
     def index
-      @bucketlists = Bucketlist.all
+      @bucketlists = User.find(current_user).bucketlists
       render json: @bucketlists
     end
 
     def show
-      @bucketlist = Bucketlist.find(params[:id])
+      @bucketlist = User.find(current_user).bucketlists.find(params[:id])
       render json: @bucketlist
     rescue
       render json: { error: "No result found for this request" }, status: 404
     end
 
     def create
-      @bucketlist = Bucketlist.new(bucketlist_params)
+      @bucketlist = User.find(current_user).bucketlists.new(bucketlist_params)
+      @bucketlist.user_id = current_user
 
       if @bucketlist.save
         render json: @bucketlist, status: 201 # created
@@ -23,7 +24,7 @@ module Api
     end
 
     def update
-      @bucketlist = Bucketlist.find(params[:id])
+      @bucketlist = User.find(current_user).bucketlists.find(params[:id])
       if @bucketlist.update(bucketlist_params)
         render json: @bucketlist, status: 201
       else
@@ -34,7 +35,7 @@ module Api
     end
 
     def destroy
-      @bucketlist = Bucketlist.find(params[:id])
+      @bucketlist = User.find(current_user).bucketlists.find(params[:id])
       @bucketlist.destroy
       render json: { message: "Bucketlist deleted successfully" }, status: 200
     rescue

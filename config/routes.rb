@@ -3,6 +3,13 @@ Rails.application.routes.draw do
     resources :bucketlists, except: [:new, :edit] do
       resources :items, only: [:create, :update, :destroy]
     end
+    
+    resources :users, only: :create
+
+    scope :auth do
+      post "login", to: "auth#login"
+      get "logout", to: "auth#logout"
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

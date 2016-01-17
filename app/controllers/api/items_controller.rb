@@ -1,8 +1,8 @@
 module Api
   class ItemsController < ApplicationController
     def create
-      @item = Item.new(item_params)
-      @item.bucketlist_id = params[:bucketlist_id]
+      @item = User.find(current_user).
+              bucketlists.find(params[:bucketlist_id]).items.new(item_params)
 
       if @item.save
         render json: @item, status: 201 # created
@@ -12,7 +12,9 @@ module Api
     end
 
     def update
-      @item = Item.find(params[:id])
+      @item = User.find(current_user).
+              bucketlists.find(params[:bucketlist_id]).items.find(params[:id])
+
       if @item.update(item_params)
         render json: @item, status: 201
       else
@@ -23,7 +25,9 @@ module Api
     end
 
     def destroy
-      @item = Item.find(params[:id])
+      @item = User.find(current_user).
+              bucketlists.find(params[:bucketlist_id]).items.find(params[:id])
+
       @item.destroy
       render json: { message: "Item deleted successfully" }, status: 200
     rescue
