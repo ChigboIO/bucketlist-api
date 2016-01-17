@@ -3,11 +3,21 @@ module Api
     class ApplicationController < ActionController::API
       include ActionController::Serialization
 
+      before_action :authenticate_user_from_token, except: :no_route
+
       def default_serializer_options
         { root: false }
       end
 
-      before_action :authenticate_user_from_token
+      def no_route
+        render(
+          json: {
+            error: "No such route exists in this application",
+            path: params[:path]
+          },
+          status: 404
+        )
+      end
 
       protected
 

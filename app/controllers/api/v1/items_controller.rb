@@ -6,6 +6,8 @@ module Api
       def bucketlist_items
         @items = User.find(current_user).
                  bucketlists.find(params[:bucketlist_id]).items
+      rescue
+        render json: { error: "No such bucketlist was found" }, status: 404
       end
 
       def create
