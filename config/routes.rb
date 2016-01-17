@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    resources :bucketlists, except: [:new, :edit] do
-      resources :items, only: [:create, :update, :destroy]
-    end
-    
-    resources :users, only: :create
+    namespace :v1 do
+      resources :bucketlists, except: [:new, :edit] do
+        resources :items, only: [:create, :update, :destroy]
+      end
 
-    scope :auth do
-      post "login", to: "auth#login"
-      get "logout", to: "auth#logout"
+      resources :users, only: :create
+
+      scope :auth do
+        post "login", to: "auth#login"
+        get "logout", to: "auth#logout"
+      end
     end
   end
 

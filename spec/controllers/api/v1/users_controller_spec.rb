@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::UsersController, type: :controller do
+RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #create" do
     it "returns http success" do
       # get :create

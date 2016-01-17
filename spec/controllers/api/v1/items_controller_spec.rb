@@ -1,6 +1,6 @@
 # require "rails_helper"
 
-# RSpec.describe Api::ItemsController, type: :controller do
+# RSpec.describe Api::V1::ItemsController, type: :controller do
 #   describe "GET #destroy" do
 #     it "assigns and deletes @item and return http_status 200" do
 #       bucketlist = create(:bucketlist)

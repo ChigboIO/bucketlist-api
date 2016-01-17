@@ -1,6 +1,6 @@
 # require "rails_helper"
 
-# RSpec.describe Api::BucketlistsController, type: :controller do
+# RSpec.describe Api::V1::BucketlistsController, type: :controller do
 #   describe "GET index" do
 #     it "assigns @bucketlists and return http_status 200" do
 #       user = create(:user)
