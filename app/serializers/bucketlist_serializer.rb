@@ -2,16 +2,13 @@ class BucketlistSerializer < ActiveModel::Serializer
   attributes :id, :name, :date_created, :date_modified, :created_by
 
   has_many :items
-  # has_one :user
 
   def date_created
-    # Date.parse(object.created_at).strftime("%Y-%m-%d %l:%M %P")
-    object.created_at
+    DateTime.parse(object.created_at.to_s).strftime("%Y-%m-%d %l:%M %P")
   end
 
   def date_modified
-    # Date.parse(object.updated_at).strftime("%Y-%m-%d %l:%M %P")
-    object.updated_at
+    DateTime.parse(object.updated_at.to_s).strftime("%Y-%m-%d %l:%M %P")
   end
 
   def created_by

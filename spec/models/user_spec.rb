@@ -27,7 +27,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "ActiveModel Association" do
-    # some activemodel association tests here
     it { expect(user).to have_many(:bucketlists) }
   end
 end

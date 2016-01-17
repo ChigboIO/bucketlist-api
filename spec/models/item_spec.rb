@@ -19,7 +19,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe "ActiveModel Association" do
-    # some activemodel association tests here
     it { expect(item).to belong_to(:bucketlist) }
   end
 end

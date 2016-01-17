@@ -17,8 +17,4 @@ RSpec.describe Token, type: :model do
   describe "ActiveModel Validations" do
     it { expect(token).to validate_presence_of(:value) }
   end
-
-  describe "ActiveModel Association" do
-    # some activemodel association tests here
-  end
 end
