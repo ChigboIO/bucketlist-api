@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  match "*path", to: "api/v1/application#no_route", via: :all
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
