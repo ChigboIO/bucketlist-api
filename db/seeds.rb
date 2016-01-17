@@ -8,10 +8,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.destroy_all
-Bucketlist.destroy_all
-Item.destroy_all
 Token.destroy_all
+Item.destroy_all
+Bucketlist.destroy_all
+User.destroy_all
 
 2.times do |i|
   user = User.create(
