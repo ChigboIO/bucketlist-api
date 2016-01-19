@@ -19,8 +19,6 @@ module Api
         )
       end
 
-      protected
-
       attr_reader :current_user
 
       def authenticate_user_from_token
@@ -33,7 +31,8 @@ module Api
       end
 
       def get_token
-        if auth_header = request.headers["Authorization"]
+        auth_header = request.headers["Authorization"]
+        if auth_header
           token = auth_header.split(" ").last
           return token if Token.find_by_value(token)
         end
@@ -42,7 +41,6 @@ module Api
       end
 
       def get_user(token)
-        # byebug
         JsonWebToken.decode(token)["user_id"]
       rescue # NoMethodError => e
         nil

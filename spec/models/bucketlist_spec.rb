@@ -32,7 +32,7 @@ RSpec.describe Bucketlist, type: :model do
 
     it do
       expect(Bucketlist.paginate(limit: 2, page: 1).first).to eq(
-        Bucketlist.limit(2).offset(1).first
+        Bucketlist.limit(2).offset(0).first
       )
     end
   end

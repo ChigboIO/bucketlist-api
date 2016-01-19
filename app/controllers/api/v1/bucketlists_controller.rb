@@ -23,14 +23,14 @@ module Api
         @bucketlist.user_id = current_user
 
         if @bucketlist.save
-          render json: @bucketlist, status: 201 # created
+          render json: @bucketlist, status: 201 # :created
         else
           render json: @bucketlist.errors.full_messages, status: 400
         end
       end
 
       def update
-        @bucketlist = @bucketlists.find(params[:id])
+        @bucketlist = find_bucketlist(params[:id])
         if @bucketlist.update(bucketlist_params)
           render json: @bucketlist, status: 201
         else
@@ -41,14 +41,18 @@ module Api
       end
 
       def destroy
-        @bucketlist = @bucketlists.find(params[:id])
+        @bucketlist = find_bucketlist(params[:id])
         @bucketlist.destroy
         render json: { message: "Bucketlist deleted successfully" }, status: 200
       rescue
-        render json: { error: "No such bucketlist was found" }, status: 404
+        render json: { error: "Bucketlist not found" }, status: 404
       end
 
       private
+
+      def find_bucketlist(id)
+        @bucketlist = @bucketlists.find(id)
+      end
 
       def bucketlist_params
         params.permit(:name)

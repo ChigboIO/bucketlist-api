@@ -5,8 +5,11 @@ RSpec.describe ItemSerializer, type: :serializer do
     let(:user) { create(:user) }
     let(:bucketlist) { create(:bucketlist, user: user) }
     let(:resource) { create(:item, bucketlist: bucketlist) }
-
     let(:serializer) { ItemSerializer.new(resource) }
+
+    before(:each) { DatabaseCleaner.start }
+
+    after(:each) { DatabaseCleaner.clean }
 
     it "responds to instance methods" do
       expect(serializer).to respond_to(:id)
@@ -31,7 +34,8 @@ RSpec.describe ItemSerializer, type: :serializer do
     describe "#date_created" do
       it do
         expect(serializer.date_created).to eq(
-          DateTime.parse(resource.created_at.to_s).strftime("%Y-%m-%d %l:%M %P")
+          DateTime.parse(resource.created_at.to_s).
+            strftime("%Y-%m-%d %l:%M %P").in_time_zone
         )
       end
     end
@@ -39,7 +43,8 @@ RSpec.describe ItemSerializer, type: :serializer do
     describe "#date_modified" do
       it do
         expect(serializer.date_modified).to eq(
-          DateTime.parse(resource.updated_at.to_s).strftime("%Y-%m-%d %l:%M %P")
+          DateTime.parse(resource.updated_at.to_s).
+            strftime("%Y-%m-%d %l:%M %P").in_time_zone
         )
       end
     end

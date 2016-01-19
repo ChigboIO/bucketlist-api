@@ -15,11 +15,8 @@ module Api
       end
 
       def logout
-        if Token.find_by_value(get_token).destroy
-          render json: { notice: "You are now logged out" }, status: 200
-        else
-          render json: { error: "Unable to log you out" }, status: 400
-        end
+        Token.find_by_value(get_token).destroy
+        render json: { notice: "You are now logged out" }, status: 200
       end
 
       def auth_params
