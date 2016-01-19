@@ -18,6 +18,9 @@ group :development, :test do
   gem "rspec-rails", "~> 3.0"
   gem "factory_girl_rails", require: false
   gem "shoulda-matchers", require: false
+  gem "database_cleaner"
+  gem "coveralls", require: false
+  gem "simplecov", require: false
 end
 
 group :production do
@@ -40,4 +43,4 @@ end
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

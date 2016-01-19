@@ -19,8 +19,21 @@ RSpec.describe Bucketlist, type: :model do
   end
 
   describe "ActiveModel Association" do
-    # some activemodel association tests here
     it { expect(bucketlist).to have_many(:items) }
     it { expect(bucketlist).to belong_to(:user) }
+  end
+
+  describe "Model scopes" do
+    it do
+      expect(Bucketlist.search("Bucketlist 1").first).to eq(
+        Bucketlist.where("name LIKE ?", "Bucketlist 1").first
+      )
+    end
+
+    it do
+      expect(Bucketlist.paginate(limit: 2, page: 1).first).to eq(
+        Bucketlist.limit(2).offset(0).first
+      )
+    end
   end
 end
