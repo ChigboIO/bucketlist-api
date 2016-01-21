@@ -9,6 +9,8 @@ require "support/request_helpers"
 require "shoulda/matchers"
 require "factory_girl_rails"
 
+# require "rspec_api_blueprint"
+
 require "coveralls"
 Coveralls.wear!
 

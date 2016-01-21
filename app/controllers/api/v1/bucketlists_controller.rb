@@ -8,12 +8,15 @@ module Api
       end
 
       def index
-        render json: @bucketlists.search(params[:q]).paginate(params)
+        render(
+          json: @bucketlists.search(params[:q]).paginate(params),
+          status: 200
+        )
       end
 
       def show
         @bucketlist = @bucketlists.find(params[:id])
-        render json: @bucketlist
+        render json: @bucketlist, status: 200
       rescue
         render json: { error: "No result found for this request" }, status: 404
       end
