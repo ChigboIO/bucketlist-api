@@ -8,7 +8,7 @@ RSpec.describe "Single Bucketlist", type: :request do
       test_with_invalid_token(:get, "/api/v1/bucketlists/#{bucketlist.id}")
     end
 
-    it "returns returns 404 error when given bucketlist id not found" do
+    it "returns returns 404 error when given bucketlist id is not found" do
       token = api_token
       get "/api/v1/bucketlists/0", nil, HTTP_AUTHORIZATION: token
 

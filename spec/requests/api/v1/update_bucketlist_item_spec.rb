@@ -18,7 +18,7 @@ RSpec.describe "Update Bucketlist Item", type: :request do
       )
     end
 
-    it "should not create when the name field is empty" do
+    it "should not update when the name field is empty" do
       token = api_token
       put(
         "/api/v1/bucketlists/#{bucketlist.id}/items/#{item.id}",
@@ -30,10 +30,10 @@ RSpec.describe "Update Bucketlist Item", type: :request do
       expect(Item.count).to eq(12)
     end
 
-    it "should update an item if the specified item id is not found" do
+    it "should not update an item if the specified item id is not found" do
       token = api_token
       put(
-        "/api/v1/bucketlists//#{bucketlist.id}/items/0",
+        "/api/v1/bucketlists/#{bucketlist.id}/items/0",
         { name: "Do something", bucketlist_id: bucketlist.id },
         HTTP_AUTHORIZATION: token
       )
@@ -42,10 +42,10 @@ RSpec.describe "Update Bucketlist Item", type: :request do
       expect(Item.count).to eq(12)
     end
 
-    it "should create an item when valid name and token are provided" do
+    it "should update specified item when valid name and token are provided" do
       token = api_token
       put(
-        "/api/v1/bucketlists//#{bucketlist.id}/items/#{item.id}",
+        "/api/v1/bucketlists/#{bucketlist.id}/items/#{item.id}",
         { name: "Do something", bucketlist_id: bucketlist.id },
         HTTP_AUTHORIZATION: token
       )
