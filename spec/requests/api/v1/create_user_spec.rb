@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Create Bucketlist", type: :request do
   include_context "before suite"
 
-  describe "POST /users/" do
+  describe "POST /users" do
     it "should not create when the name, email or password field is empty" do
       post("/api/v1/users/", name: "", email: "", password: "")
 

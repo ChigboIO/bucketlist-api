@@ -20,7 +20,7 @@ RSpec.describe "Create Bucketlist", type: :request do
       expect(Bucketlist.count).to eq(6)
     end
 
-    it "returns items by the user with valid token provided" do
+    it "creates and returns the new record when valid token is provided" do
       token = api_token
       post(
         "/api/v1/bucketlists/",
