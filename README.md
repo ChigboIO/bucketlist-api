@@ -29,15 +29,15 @@ For full documentation, and usage examples, see http://ebucketlist-staging.herok
 ## Versioning
 Changes and upgrades are made from time to time in this API. So that a consumer's code does not break, the major changes are made as a different version. We have provided three ways of specifying the requested version, these are listed below:
 
-### By specifying the version in the url path
+By specifying the version in the url path
         GET /api/v1/<some-endpoint>
 
-### By passing the `Accept` header stating the version in your request
+By passing the `Accept` header stating the version in your request
 ```ruby
 {'Accept' => 'application/vnd.mycompany.com; version=1'}
 ```
 
-### By passing the `version` parameter to the url
+By passing the `version` parameter to the url
         GET /api/<some-endpoint>?version=v1
 
 Also, if the version is not passed in anyway, the requests defaults to version 1.
