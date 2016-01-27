@@ -16,10 +16,6 @@ module Api
         )
       end
 
-      def root
-        redirect_to "http://docs.ebucketlist.apiary.io/#"
-      end
-
       attr_reader :current_user_id
 
       def authenticate_user_from_token
