@@ -159,6 +159,11 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
+    versionist (1.4.1)
+      activesupport (>= 3)
+      railties (>= 3)
+      yard (~> 0.7)
+    yard (0.8.7.6)
 
 PLATFORMS
   ruby
@@ -180,6 +185,7 @@ DEPENDENCIES
   simplecov
   spring
   sqlite3
+  versionist
 
 BUNDLED WITH
    1.11.2
