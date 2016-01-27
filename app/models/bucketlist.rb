@@ -33,4 +33,6 @@ class Bucketlist < ActiveRecord::Base
       limit(limit).offset(offset)
     end
   )
+
+  scope :by_current_user, ->(user_id) { where(user_id: user_id) }
 end

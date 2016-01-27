@@ -24,16 +24,25 @@ RSpec.describe Bucketlist, type: :model do
   end
 
   describe "Model scopes" do
-    it do
-      expect(Bucketlist.search("Bucketlist 1").first).to eq(
-        Bucketlist.where("name LIKE ?", "Bucketlist 1").first
-      )
+    describe ".search" do
+      it "searches and return the bucketlist that matches search param" do
+        bucket = Bucketlist.create(name: "Sample Bucket", user_id: 1)
+        expect(Bucketlist.search("Sample").last).to eq(bucket)
+      end
     end
 
-    it do
-      expect(Bucketlist.paginate(limit: 2, page: 1).first).to eq(
-        Bucketlist.limit(2).offset(0).first
-      )
+    describe ".by_current_user" do
+      it "returns the bucketlist created by the current user" do
+        bucket = Bucketlist.create(name: "Sample Bucket", user_id: 1)
+        expect(Bucketlist.by_current_user(1).last).to eq(bucket)
+      end
+    end
+
+    describe ".paginate" do
+      it "returns the specified page and limit of the results" do
+        bucket3 = Bucketlist.create(name: "Sample Bucket 3", user_id: 1)
+        expect(Bucketlist.paginate(limit: 20, page: 1).last).to eq(bucket3)
+      end
     end
   end
 end

@@ -8,7 +8,7 @@ Every operations are are secured to a registered user's access. This mean that e
 
 This API uses JWT authentication to validate a request. That is to say that every request to the API is sent with an authentication token which is gotten when a user logs in for the first time.
 
-For full documentation, and usage examples, see http://docs.ebucketlist.apiary.io/#
+For full documentation, and usage examples, see https://ebucketlist-staging.herokuapp.com/
 
 ## Available endpoints.
 
