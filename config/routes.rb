@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
-    namespace :v1 do
+    api_version(
+      module: "V1",
+      header: {
+        name: "Accept",
+        value: "application/vnd.ebucketlist.herokuapp.com; version=1"
+      },
+      path: { value: "v1" },
+      parameter: { name: "version", value: "v1" },
+      default: true
+    ) do
       resources :bucketlists, except: [:new, :edit] do
         resources :items, only: [:create, :update, :destroy]
       end

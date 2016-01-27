@@ -7,6 +7,7 @@ gem "active_model_serializers"
 gem "faker"
 gem "bcrypt"
 gem "jwt"
+gem "versionist"
 
 group :development do
   gem "byebug"

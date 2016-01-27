@@ -8,7 +8,7 @@ Every operations are are secured to a registered user's access. This mean that e
 
 This API uses JWT authentication to validate a request. That is to say that every request to the API is sent with an authentication token which is gotten when a user logs in for the first time.
 
-For full documentation, and usage examples, see https://ebucketlist-staging.herokuapp.com/
+For full documentation, and usage examples, see http://ebucketlist-staging.herokuapp.com/
 
 ## Available endpoints.
 
@@ -26,6 +26,21 @@ For full documentation, and usage examples, see https://ebucketlist-staging.hero
 | DELETE /bucketlists/:id/items/:item_id  | Delete an item in a bucket lists     |
 | POST /users/                            | Create a new user                    |
 
+## Versioning
+Changes and upgrades are made from time to time in this API. So that a consumer's code does not break, the major changes are made as a different version. We have provided three ways of specifying the requested version, these are listed below:
+
+### By specifying the version in the url path
+        GET /api/v1/<some-endpoint>
+
+### By passing the `Accept` header stating the version in your request
+```ruby
+{'Accept' => 'application/vnd.mycompany.com; version=1'}
+```
+
+### By passing the `version` parameter to the url
+        GET /api/<some-endpoint>?version=v1
+
+Also, if the version is not passed in anyway, the requests defaults to version 1.
 
 ## Limitations
 The API only responds with json, and does not yet have support for xml and other response types.
