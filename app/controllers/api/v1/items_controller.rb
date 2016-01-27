@@ -1,41 +1,45 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-      before_action :bucketlist_items
+      before_action :confirm_bucketlist_ownership
 
-      def bucketlist_items
-        @items = User.find(current_user).
-                 bucketlists.find(params[:bucketlist_id]).items
-      rescue
-        render json: { error: "No such bucketlist was found" }, status: 404
+      def confirm_bucketlist_ownership
+        bucketlist = Bucketlist.where(
+          user_id: current_user_id,
+          id: params[:bucketlist_id]
+        )
+
+        if bucketlist.empty?
+          render json: { error: "No such bucketlist was found" }, status: 404
+        end
       end
 
       def create
-        @item = @items.new(item_params)
+        item = Item.new(item_params)
 
-        if @item.save
-          render json: @item, status: 201 # created
+        if item.save
+          render json: item, status: 201
         else
-          render json: @item.errors.full_messages, status: 400
+          render json: item.errors.full_messages, status: 400
         end
       end
 
       def update
-        @item = @items.find(params[:id])
+        item = bucketlist_item(params[:id])
 
-        if @item.update(item_params)
-          render json: @item, status: 201
+        if item.update(item_params)
+          render json: item, status: 201
         else
-          render json: @item.errors.full_messages, status: 400
+          render json: item.errors.full_messages, status: 400
         end
       rescue
         render json: { error: "No such item was found" }, status: 404
       end
 
       def destroy
-        @item = @items.find(params[:id])
+        item = bucketlist_item(params[:id])
 
-        @item.destroy
+        item.destroy
         render json: { message: "Item deleted successfully" }, status: 200
       rescue
         render json: { error: "No such item was found" }, status: 404
@@ -44,7 +48,11 @@ module Api
       private
 
       def item_params
-        params.permit(:name, :done)
+        params.permit(:bucketlist_id, :name, :done)
+      end
+
+      def bucketlist_item(id)
+        Item.in_bucketlist(params[:bucketlist_id]).find(id)
       end
     end
   end

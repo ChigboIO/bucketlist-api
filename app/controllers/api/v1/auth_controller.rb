@@ -7,7 +7,6 @@ module Api
         user = User.find_by_email(auth_params[:email])
         if user && user.authenticate(auth_params[:password])
           token = JsonWebToken.encode("user_id" => user.id)
-          Token.create(value: token)
           render json: { notice: "Login successful", token: token }, status: 201
         else
           render json: { error: "Incorrect username or password" }, status: 400

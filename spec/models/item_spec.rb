@@ -21,4 +21,13 @@ RSpec.describe Item, type: :model do
   describe "ActiveModel Association" do
     it { expect(item).to belong_to(:bucketlist) }
   end
+
+  describe "Model scopes" do
+    describe ".in_bucketlist" do
+      it "returns the bucketlist created by the current user" do
+        item = Item.create(name: "Sample Item", bucketlist_id: 1)
+        expect(Item.in_bucketlist(1).last).to eq(item)
+      end
+    end
+  end
 end
