@@ -14,7 +14,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root "api/v1/application#root"
-
   match "*path", to: "api/v1/application#no_route", via: :all
 end
