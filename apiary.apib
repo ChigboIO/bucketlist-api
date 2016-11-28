@@ -1,0 +1,383 @@
+FORMAT: 1A
+HOST: https://ebucketlist-staging.herokuapp.com/api/v1
+
+# eBucketlist API (v1)
+
+Is a simple API for bucketlist design.
+It provides an application interface that enables users to create
+and manage their bucketlists. A user can have many bucketlist.
+Each bucketlist can have many items.
+This API provides interfaces to the following operations.
+
+## Available Endpoints
+
+[//]: # (Design the tabular rep of the API endpoints)
+
+## Bucketlists Collection [/bucketlists]
+
+### List All Bucketlists [GET]
+
+List all bucketlists and their corresponding items 
+for a particular logged in user.
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: "some token here"
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "name": "groupware",
+            "date_created": "2016-01-18T06:53:00.000Z",
+            "date_modified": "2016-01-18T06:53:00.000Z",
+            "created_by": "Ms. Quinton Mohr (science1@gmail.com)",
+            "items": [
+              {
+                "id": 1,
+                "name": "Networked 5th generation migration",
+                "date_created": "2016-01-18T06:53:00.000Z",
+                "date_modified": "2016-01-18T06:53:00.000Z",
+                "done": false
+              },
+              {
+                "id": 2,
+                "name": "Total dynamic structure",
+                "date_created": "2016-01-18T06:53:00.000Z",
+                "date_modified": "2016-01-18T06:53:00.000Z",
+                "done": false
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "name": "Robust",
+            "date_created": "2016-01-18T06:53:00.000Z",
+            "date_modified": "2016-01-18T06:53:00.000Z",
+            "created_by": "Ms. Quinton Mohr (science1@gmail.com)",
+            "items": [
+              {
+                "id": 3,
+                "name": "Multi-channelled 4th generation analyzer",
+                "date_created": "2016-01-18T06:53:00.000Z",
+                "date_modified": "2016-01-18T06:53:00.000Z",
+                "done": false
+              }
+            ]
+          }
+        ]
+
+### Create a New Bucketlist [POST]
+
+A signed in user may create a bucketlist by making a `post` request to
+the `/bucketlist` path. This request will carry the to-be-created
+bucketlist information(bucketlist `name`) in the body of the request.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
+    + Body
+    
+            {
+                "name": "Programming Laguages to Learn"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "Programming Languages to Learn"
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z",
+                "created_by": "<User's name> (<user's email>)",
+                "items": []
+            }
+
+## A Single Bucketlist [/bucketlist/{id}]
+
+### Get a Particular Bucketlist [GET]
+
+User can get a given bucketlist
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<name>"
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z",
+                "created_by": "<User's name> (<user's email>)",
+                "items": []
+            }
+
+### Update a Bucketlist [PUT]
+
+User can update a given bucketlist
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<new name>"
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z",
+                "created_by": "<User's name> (<user's email>)",
+                "items": []
+            }
+
+### Delete a Bucketlist [DELETE]
+
+User can delete a given bucketlist
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Bucketlist deleted successfully"
+            }
+
+
+## Bucketlist searching [/bucketlist/?q=name]
+
+### Search a Bucetlist by name [GET]
+
+A search can be made for a particular bucketlist by passing the 
+`q = <name>`to the url, where the <name> is the name of the bucketlist 
+you want to search. This returns the bucketlists with the supplied 
+string in their name.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<name>"
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z",
+                "created_by": "<User's name> (<user's email>)",
+                "items": []
+            }
+
+
+## Bucketlist pagination [/bucketlist/?limit=name&page=2]
+
+### Filter Bucketlists in pages [GET]
+
+A user can request for a particular page in a given group size of the 
+bucketlists.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+         
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<name>"
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z",
+                "created_by": "<User's name> (<user's email>)",
+                "items": []
+            }
+
+
+## Bucketlist Items [/bucketlist/{bucketlist_id}/items/]
+
+### Create a New Item in a Bucketlist [POST]
+
+To create another item in a given bucketlist item.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+
+    + Body
+
+            {
+                "name": "<name>"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<name>",
+                "done": "false",
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z"
+            }
+
+
+## A Bucketlist Item [/bucketlist/{bucketlist_id}/items/{id}]
+
+### Update a Bucketlist Item [PUT]
+
+To create another item in a given bucketlist item.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+
+    + Body
+
+            {
+                "done": true,
+                "name": "<new name>"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<new name>"
+                "done": true,
+                "date_created": "2016-01-21T12:03:00.000Z",
+                "date_modified": "2016-01-21T12:03:00.000Z"
+            }
+
+
+### Update a Bucketlist Item [DELETE]
+
+To delete an item in a given bucketlist.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Item deleted successfully"
+            }
+
+
+## Users [/users]
+
+### Create a New user [POST]
+
+To create a user.
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+
+    + Body
+
+            {
+                "name": "<name>",
+                "email": "<email>",
+                "password": "<password>"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 7,
+                "name": "<name>",
+                "email": "<email>",
+                "password": "<password>"
+            }
+
+
+## User Authentication [/auth/login]
+
+### Authentication a user and generate a token [POST]
+
+To login a user
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "email": "<email>",
+                "password": "<password>"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "token": "your token string"
+            }
+
+
+## User Logout [/auth/logout]
+
+### Authentication a user and generate a token [GET]
+
+To logout a user
+
++ Request (application/json)
+
+    + Headers
+        
+            Authorization: "your token"
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "You are now logged out"
+            }
